@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeşilay Power Up - 4. Hafta</title>
+    <style>
+        :root {
+            --green: #168a4a;
+            --green-2: #23b36b;
+            --mint: #dff7ea;
+            --ink: #14312a;
+            --muted: #60756d;
+            --paper: #ffffff;
+            --sky: #dff3ff;
+            --sun: #ffd166;
+            --coral: #ff7a59;
+            --violet: #7467f0;
+            --line: rgba(20, 49, 42, 0.13);
+            --shadow: 0 22px 60px rgba(22, 138, 74, 0.16);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--ink);
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background:
+                radial-gradient(circle at 15% 12%, rgba(255, 209, 102, 0.4), transparent 24rem),
+                radial-gradient(circle at 85% 8%, rgba(35, 179, 107, 0.2), transparent 22rem),
+                linear-gradient(180deg, #f4fff8 0%, #eef8ff 46%, #fbfff6 100%);
+            line-height: 1.55;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        .page-shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .hero {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+            gap: 34px;
+            align-items: center;
+            min-height: 92vh;
+            padding: 32px 0 42px;
+        }
+
+        .topbar {
+            position: absolute;
+            top: 18px;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            color: #fff;
+            background: linear-gradient(135deg, var(--green), var(--green-2));
+            box-shadow: 0 10px 26px rgba(22, 138, 74, 0.25);
+        }
+
+        .nav-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-pills a {
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 9px 12px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-copy {
+            padding-top: 88px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--green);
+            font-size: 14px;
+            font-weight: 850;
+            letter-spacing: 0.9px;
+            text-transform: uppercase;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(223, 247, 234, 0.85);
+            border: 1px solid rgba(22, 138, 74, 0.16);
+        }
+
+        h1 {
+            max-width: 760px;
+            margin: 18px 0 18px;
+            font-size: clamp(42px, 7vw, 88px);
+            line-height: 0.94;
+            letter-spacing: 0;
+        }
+
+        .hero-copy p {
+            max-width: 650px;
+            margin: 0;
+            color: var(--muted);
+            font-size: clamp(17px, 2vw, 21px);
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-height: 48px;
+            padding: 12px 18px;
+            border: 0;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 850;
+            text-decoration: none;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            color: #fff;
+            background: linear-gradient(135deg, var(--green), var(--green-2));
+            box-shadow: 0 14px 28px rgba(22, 138, 74, 0.28);
+        }
+
+        .btn-secondary {
+            color: var(--ink);
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid var(--line);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: grid;
+            place-items: center;
+            min-height: 610px;
+            padding-top: 70px;
+        }
+
+        .poster {
+            position: relative;
+            width: min(100%, 455px);
+            aspect-ratio: 0.78;
+            overflow: hidden;
+            border: 1px solid rgba(22, 138, 74, 0.14);
+            border-radius: 8px;
+            background:
+                linear-gradient(180deg, rgba(223, 243, 255, 0.95), rgba(244, 255, 248, 0.9) 52%, rgba(214, 241, 216, 0.92)),
+                #fff;
+            box-shadow: var(--shadow);
+        }
+
+        .sun {
+            position: absolute;
+            top: 42px;
+            right: 52px;
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            background: var(--sun);
+            box-shadow: 0 0 0 18px rgba(255, 209, 102, 0.17);
+        }
+
+        .hill {
+            position: absolute;
+            left: -10%;
+            right: -10%;
+            bottom: -9%;
+            height: 43%;
+            border-radius: 52% 48% 0 0;
+            background: linear-gradient(135deg, #86d88d, #2fa866);
+        }
+
+        .path {
+            position: absolute;
+            left: 42%;
+            bottom: -2%;
+            width: 27%;
+            height: 42%;
+            transform: skewX(-11deg);
+            border-radius: 50% 50% 0 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 209, 102, 0.55));
+        }
+
+        .tree {
+            position: absolute;
+            left: 56px;
+            bottom: 128px;
+            width: 92px;
+            height: 150px;
+        }
+
+        .tree::before {
+            content: "";
+            position: absolute;
+            left: 41px;
+            bottom: 0;
+            width: 13px;
+            height: 82px;
+            border-radius: 999px;
+            background: #8a5a35;
+        }
+
+        .tree::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 92px;
+            height: 92px;
+            border-radius: 48% 52% 54% 46%;
+            background: linear-gradient(135deg, #1e9a58, #7ed957);
+            box-shadow: 28px 34px 0 -8px #34b96e, -18px 38px 0 -12px #68ca78;
+        }
+
+        .promise-card {
+            position: absolute;
+            right: 26px;
+            bottom: 112px;
+            width: 206px;
+            padding: 18px;
+            color: #17362e;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: 0 18px 38px rgba(20, 49, 42, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(9px);
+        }
+
+        .promise-card strong {
+            display: block;
+            font-size: 18px;
+            line-height: 1.12;
+            margin-bottom: 8px;
+        }
+
+        .promise-card span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .floating-note {
+            position: absolute;
+            left: -20px;
+            bottom: 44px;
+            width: 190px;
+            padding: 14px 16px;
+            border-radius: 8px;
+            background: var(--ink);
+            color: #fff;
+            box-shadow: 0 18px 35px rgba(20, 49, 42, 0.2);
+            animation: floaty 4.4s ease-in-out infinite;
+        }
+
+        @keyframes floaty {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            padding: 0 0 54px;
+        }
+
+        .stat {
+            min-height: 116px;
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat b {
+            display: block;
+            color: var(--green);
+            font-size: 34px;
+            line-height: 1;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .section {
+            padding: 58px 0;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 22px;
+            margin-bottom: 24px;
+        }
+
+        .section-heading h2 {
+            max-width: 690px;
+            margin: 0;
+            font-size: clamp(31px, 4vw, 52px);
+            line-height: 1;
+            letter-spacing: 0;
+        }
+
+        .section-heading p {
+            max-width: 400px;
+            margin: 0;
+            color: var(--muted);
+            font-weight: 650;
+        }
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .activity {
+            position: relative;
+            min-height: 350px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.82);
+            box-shadow: 0 12px 30px rgba(20, 49, 42, 0.08);
+        }
+
+        .activity::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            height: 7px;
+            background: var(--accent);
+        }
+
+        .activity-inner {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 22px;
+        }
+
+        .activity-icon {
+            display: grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            color: #fff;
+            background: var(--accent);
+            box-shadow: 0 12px 22px color-mix(in srgb, var(--accent) 32%, transparent);
+        }
+
+        .activity h3 {
+            margin: 0 0 12px;
+            font-size: 22px;
+            line-height: 1.1;
+        }
+
+        .activity p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .activity-tag {
+            margin-top: auto;
+            padding-top: 22px;
+            color: var(--ink);
+            font-size: 13px;
+            font-weight: 850;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .experience {
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.82);
+            box-shadow: 0 14px 36px rgba(20, 49, 42, 0.08);
+        }
+
+        .promise-panel {
+            padding: 26px;
+        }
+
+        .promise-panel h2 {
+            margin: 0 0 12px;
+            font-size: clamp(28px, 4vw, 48px);
+            line-height: 1;
+        }
+
+        .promise-panel p {
+            margin: 0 0 22px;
+            color: var(--muted);
+            font-weight: 650;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 10px;
+        }
+
+        .promise-input {
+            width: 100%;
+            min-height: 52px;
+            padding: 0 16px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            color: var(--ink);
+            background: #fff;
+            outline: none;
+        }
+
+        .promise-input:focus {
+            border-color: var(--green-2);
+            box-shadow: 0 0 0 4px rgba(35, 179, 107, 0.12);
+        }
+
+        .hint {
+            min-height: 24px;
+            margin-top: 14px;
+            color: var(--green);
+            font-weight: 800;
+        }
+
+        .wall {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            padding: 16px;
+        }
+
+        .note {
+            min-height: 118px;
+            padding: 16px;
+            border-radius: 8px;
+            color: #17312a;
+            background: #fff7cc;
+            box-shadow: 0 12px 24px rgba(20, 49, 42, 0.08);
+            transform: rotate(var(--tilt));
+        }
+
+        .note:nth-child(2n) { background: #dcf8ff; }
+        .note:nth-child(3n) { background: #e7ffe6; }
+        .note:nth-child(4n) { background: #ffe7dc; }
+
+        .note b {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: rgba(20, 49, 42, 0.62);
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+            padding-bottom: 76px;
+        }
+
+        .step {
+            position: relative;
+            min-height: 168px;
+            padding: 20px;
+            border-left: 5px solid var(--accent);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.76);
+            border-top: 1px solid var(--line);
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .step span {
+            display: inline-grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            margin-bottom: 14px;
+            border-radius: 50%;
+            color: #fff;
+            background: var(--accent);
+            font-weight: 900;
+        }
+
+        .step h3 {
+            margin: 0 0 8px;
+            font-size: 19px;
+        }
+
+        .step p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .footer-band {
+            padding: 28px 0 34px;
+            color: #fff;
+            background: linear-gradient(135deg, var(--ink), #175d42);
+        }
+
+        .footer-band .page-shell {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer-band strong {
+            font-size: 22px;
+        }
+
+        .footer-band span {
+            color: rgba(255, 255, 255, 0.74);
+        }
+
+        .icon {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .experience {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 24px;
+            }
+
+            .hero-copy {
+                padding-top: 92px;
+            }
+
+            .hero-visual {
+                min-height: 520px;
+                padding-top: 0;
+            }
+
+            .activity-grid,
+            .stats,
+            .timeline {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .section-heading p {
+                margin-top: 12px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                width: min(100% - 22px, 1180px);
+            }
+
+            .topbar {
+                position: relative;
+                top: 0;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-pills {
+                justify-content: flex-start;
+            }
+
+            .hero-copy {
+                padding-top: 28px;
+            }
+
+            .hero-visual {
+                min-height: 430px;
+            }
+
+            .poster {
+                width: min(100%, 360px);
+            }
+
+            .floating-note {
+                left: 10px;
+                width: 158px;
+                font-size: 13px;
+            }
+
+            .promise-card {
+                right: 14px;
+                width: 178px;
+            }
+
+            .activity-grid,
+            .stats,
+            .timeline,
+            .wall,
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stat,
+            .activity,
+            .step {
+                min-height: auto;
+            }
+
+            .footer-band .page-shell {
+                display: block;
+            }
+
+            .footer-band span {
+                display: block;
+                margin-top: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="hero page-shell">
+            <header class="topbar" aria-label="Sayfa başlığı">
+                <div class="brand">
+                    <span class="brand-mark" aria-hidden="true">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M12 21c4-4 7-8 7-12a7 7 0 0 0-14 0c0 4 3 8 7 12z"></path><path d="M9 10c2.4.2 4.3-1 6-3"></path><path d="M9 10c1 1.8 2.6 3 5 3"></path></svg>
+                    </span>
+                    <span>Yeşilay Power Up</span>
+                </div>
+                <nav class="nav-pills" aria-label="Bölümler">
+                    <a href="#etkinlikler">Etkinlikler</a>
+                    <a href="#sandik">Dijital Sandık</a>
+                    <a href="#plan">Hafta Planı</a>
+                </nav>
+            </header>
+
+            <div class="hero-copy">
+                <span class="eyebrow">4. Hafta Etkinlikleri</span>
+                <h1>Geleceğe İz Bırak</h1>
+                <p>Bugün attığımız sağlıklı adımlar, yarının yeşil geleceğini inşa eder. 6-H sınıfı Power Up ekibi; söz, farkındalık ve doğa için sahaya çıkıyor.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#sandik">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M4 11h16"></path><path d="M6 11v8h12v-8"></path><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+                        Söz Bırak
+                    </a>
+                    <a class="btn btn-secondary" href="#etkinlikler">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M8 6h13"></path><path d="M8 12h13"></path><path d="M8 18h13"></path><path d="M3 6h.01"></path><path d="M3 12h.01"></path><path d="M3 18h.01"></path></svg>
+                        Programı Gör
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual" aria-hidden="true">
+                <div class="poster">
+                    <div class="sun"></div>
+                    <div class="tree"></div>
+                    <div class="hill"></div>
+                    <div class="path"></div>
+                    <div class="promise-card">
+                        <strong>Sağlıklı seçimler, güçlü gelecek.</strong>
+                        <span>Gelecek sandığına atılacak ilk söz hazır.</span>
+                    </div>
+                    <div class="floating-note">"Yeşil bir yaşam, sağlıklı bir gelecek."</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats page-shell" aria-label="Hafta özeti">
+            <div class="stat"><b>4</b><span>ana etkinlik</span></div>
+            <div class="stat"><b>6-H</b><span>Power Up ekibi</span></div>
+            <div class="stat"><b>1</b><span>gelecek sandığı</span></div>
+            <div class="stat"><b>∞</b><span>iyi alışkanlık</span></div>
+        </section>
+
+        <section class="section page-shell" id="etkinlikler">
+            <div class="section-heading">
+                <h2>Bu hafta şehir, okul ve doğa aynı hedefte buluşuyor.</h2>
+                <p>Her etkinlik geleceğe bırakılan görünür, paylaşılabilir ve kalıcı bir iz oluşturuyor.</p>
+            </div>
+
+            <div class="activity-grid">
+                <article class="activity" style="--accent:#23b36b">
+                    <div class="activity-inner">
+                        <div class="activity-icon">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path></svg>
+                        </div>
+                        <h3>Geleceğe Mektuplar Sandığı</h3>
+                        <p>Gelecekteki kendimize sağlıklı yaşam sözleri yazıyor, zarflara koyuyor ve özel hazırlanan Gelecek Sandığı'na bırakıyoruz.</p>
+                        <div class="activity-tag">Söz ver</div>
+                    </div>
+                </article>
+
+                <article class="activity" style="--accent:#7467f0">
+                    <div class="activity-inner">
+                        <div class="activity-icon">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M12 14a4 4 0 0 0 4-4V5a4 4 0 0 0-8 0v5a4 4 0 0 0 4 4z"></path><path d="M19 10a7 7 0 0 1-14 0"></path><path d="M12 17v4"></path></svg>
+                        </div>
+                        <h3>Sokaktakilere Sorduk</h3>
+                        <p>Mahallemizdeki insanlara sağlıklı gelecek için ne yapmayı planladıklarını soruyor, ilham veren cevapları topluyoruz.</p>
+                        <div class="activity-tag">Dinle</div>
+                    </div>
+                </article>
+
+                <article class="activity" style="--accent:#ff7a59">
+                    <div class="activity-inner">
+                        <div class="activity-icon">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path><path d="M17 17l3 3"></path></svg>
+                        </div>
+                        <h3>Mahalle Afiş Çalışması</h3>
+                        <p>Bilgilendirici ve dikkat çekici afişleri okul çevresinde ve ortak alanlarda paylaşarak sağlıklı yaşam bilincini yayıyoruz.</p>
+                        <div class="activity-tag">Duyur</div>
+                    </div>
+                </article>
+
+                <article class="activity" style="--accent:#168a4a">
+                    <div class="activity-inner">
+                        <div class="activity-icon">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M12 22V12"></path><path d="M12 12C7 12 5 9 5 5c4 0 7 2 7 7z"></path><path d="M12 12c5 0 7-3 7-7-4 0-7 2-7 7z"></path></svg>
+                        </div>
+                        <h3>Geleceğe Nefes</h3>
+                        <p>Fidan dikiyor, üzerlerine "Gelecek için spor" ve "Yeşil bir yaşam" gibi kalıcı mesajlar asıyoruz.</p>
+                        <div class="activity-tag">Yaşat</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section page-shell" id="sandik">
+            <div class="experience">
+                <div class="panel promise-panel">
+                    <h2>Dijital Gelecek Sandığı</h2>
+                    <p>Bir sağlıklı yaşam sözü yaz. Sayfa onu anında söz panosuna eklesin.</p>
+                    <div class="form-row">
+                        <input class="promise-input" id="promiseInput" maxlength="90" placeholder="Örn: Her gün 20 dakika yürüyüş yapacağım.">
+                        <button class="btn btn-primary" id="promiseButton" type="button">
+                            <svg class="icon" viewBox="0 0 24 24"><path d="M22 2 11 13"></path><path d="m22 2-7 20-4-9-9-4 20-7z"></path></svg>
+                            Sandığa At
+                        </button>
+                    </div>
+                    <div class="hint" id="hint" aria-live="polite"></div>
+                </div>
+
+                <div class="panel wall" id="promiseWall" aria-label="Söz panosu">
+                    <div class="note" style="--tilt:-1.2deg"><b>Söz 01</b>Bugün su içmeyi, hareket etmeyi ve kendime iyi bakmayı seçeceğim.</div>
+                    <div class="note" style="--tilt:1.4deg"><b>Söz 02</b>Daha temiz bir çevre için gördüğüm atığı doğru yere atacağım.</div>
+                    <div class="note" style="--tilt:0.8deg"><b>Söz 03</b>Arkadaşlarımı sağlıklı seçimler için destekleyeceğim.</div>
+                    <div class="note" style="--tilt:-0.7deg"><b>Söz 04</b>Gelecek için spor, bugün için enerji.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section page-shell" id="plan">
+            <div class="section-heading">
+                <h2>Hafta akışı sade, güçlü ve uygulanabilir.</h2>
+                <p>Hazırlık, sahaya çıkış, paylaşım ve kalıcı iz aynı çizgide ilerliyor.</p>
+            </div>
+            <div class="timeline">
+                <div class="step" style="--accent:#23b36b"><span>1</span><h3>Hazırla</h3><p>Mektup, afiş, soru ve fidan notları son haline getirilir.</p></div>
+                <div class="step" style="--accent:#7467f0"><span>2</span><h3>Paylaş</h3><p>Sokak röportajları yapılır, mahalleye ses verilir.</p></div>
+                <div class="step" style="--accent:#ff7a59"><span>3</span><h3>Yay</h3><p>Afişler görünür alanlara asılır, mesajlar çoğaltılır.</p></div>
+                <div class="step" style="--accent:#168a4a"><span>4</span><h3>Yaşat</h3><p>Fidanlar dikilir, sözler geleceğe emanet edilir.</p></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-band">
+        <div class="page-shell">
+            <strong>Geleceğe İz Bırak</strong>
+            <span>Yeşilay Power Up | 4. Hafta Etkinlikleri</span>
+        </div>
+    </footer>
+
+    <script>
+        const input = document.getElementById("promiseInput");
+        const button = document.getElementById("promiseButton");
+        const wall = document.getElementById("promiseWall");
+        const hint = document.getElementById("hint");
+        let count = 4;
+
+        function addPromise() {
+            const text = input.value.trim();
+
+            if (!text) {
+                hint.textContent = "Sandık boş söz kabul etmiyor; küçük de olsa bir hedef yaz.";
+                input.focus();
+                return;
+            }
+
+            count += 1;
+            const note = document.createElement("div");
+            note.className = "note";
+            note.style.setProperty("--tilt", `${(Math.random() * 2.8 - 1.4).toFixed(1)}deg`);
+            note.innerHTML = `<b>Söz ${String(count).padStart(2, "0")}</b>${escapeHtml(text)}`;
+            wall.prepend(note);
+            input.value = "";
+            hint.textContent = "Harika! Sözün dijital sandığa eklendi.";
+            window.setTimeout(() => {
+                hint.textContent = "";
+            }, 3200);
+        }
+
+        function escapeHtml(value) {
+            return value
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        button.addEventListener("click", addPromise);
+        input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                addPromise();
+            }
+        });
+    </script>
+</body>
+</html>
